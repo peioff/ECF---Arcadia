@@ -1,3 +1,9 @@
+let baseUrl;
+if (window.location.hostname === 'localhost') {
+    baseUrl = window.location.origin + '/ecf/';
+} else {
+    baseurl = "https://ecf-arcadia-00d8251bc78c.herokuapp.com/";
+}
 function formApproval() {
     let serviceName = document.getElementById('serviceName').value;
     let serviceSchedule = document.getElementById('serviceSchedule').value;
@@ -34,7 +40,7 @@ function formApproval() {
     $( '#addServiceForm' )
         .submit( function( e ) {
             $.ajax( {
-                url: "http://localhost/ecf/addServiceToDatabase",
+                url: baseUrl + "addServiceToDatabase",
                 type: 'POST',
                 dataType:'json',
                 data: new FormData( this ),
@@ -44,7 +50,7 @@ function formApproval() {
                 if (response.error === 'none') {
                     toast('Service ajouté! Redirection dans 3 secondes', 'success');
                     window.setTimeout(() => {
-                        window.location.replace("http://localhost/ecf/dashboardServices");
+                        window.location.replace("dashboardServices");
                     }, 3000);
                 }
 
@@ -52,7 +58,7 @@ function formApproval() {
                 toast('Une erreur s\'est produite, retour à la page Animaux dans 3 secondes','error');
                 // Simulate an HTTP redirect:
                 window.setTimeout(() => {
-                    window.location.replace("http://localhost/ecf/dashboardServices");
+                    window.location.replace("dashboardServices");
                 }, 3000);
             });
             e.preventDefault();

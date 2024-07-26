@@ -1,4 +1,9 @@
-
+let baseUrl;
+if (window.location.hostname === 'localhost') {
+    baseUrl = window.location.origin + '/ecf/';
+} else {
+    baseurl = "https://ecf-arcadia-00d8251bc78c.herokuapp.com/";
+}
 function animalOnClick(animalId,element){
    console.log(element);
     //Init
@@ -39,7 +44,7 @@ function animalOnClick(animalId,element){
         let image;
         //Reaching Server and creating a new Animal
         $.ajax({
-            url: "http://localhost/ecf/animalOnClick",
+            url: baseUrl + "animalOnClick",
             method: "GET",
             dataType: "json",
             data: {

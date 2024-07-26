@@ -1,4 +1,9 @@
-
+let baseUrl;
+if (window.location.hostname === 'localhost') {
+    baseUrl = window.location.origin + '/ecf/';
+} else {
+    baseurl = "https://ecf-arcadia-00d8251bc78c.herokuapp.com/";
+}
 function formApproval() {
     let nickname =document.getElementById('contactNickname').value;
     let title =document.getElementById('contactTitle').value;
@@ -15,7 +20,7 @@ function formApproval() {
     }
     else {
         $.ajax({
-                url: "http://localhost/ecf/contactApproval",
+                url: baseUrl + "contactApproval",
                 method: "post",
                 dataType: "json"
                 ,
@@ -37,7 +42,7 @@ function formApproval() {
                 toast(response.message,'success');
                 // Simulate an HTTP redirect:
                 window.setTimeout(() => {
-                    window.location.replace("http://localhost/ecf/home");
+                    window.location.replace("home");
                 }, 3000);
             }
         })
@@ -45,7 +50,7 @@ function formApproval() {
                 toast('Une erreur s\'est produite, retour à la page d\'accueil dans 3 secondes','error');
                 // Simulate an HTTP redirect:
                 window.setTimeout(() => {
-                    window.location.replace("http://localhost/ecf/home");
+                    window.location.replace("home");
                 }, 3000);            })
             .always(function () {
             });

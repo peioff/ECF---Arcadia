@@ -1,3 +1,9 @@
+let baseUrl;
+if (window.location.hostname === 'localhost') {
+    baseUrl = window.location.origin + '/ecf/';
+} else {
+    baseurl = "https://ecf-arcadia-00d8251bc78c.herokuapp.com/";
+}
 function formApproval() {
     let animalName = document.getElementById('animalName').value;
     let reportDate = document.getElementById('reportDate').value;
@@ -22,7 +28,7 @@ function formApproval() {
     $( '#addReportForm' )
         .submit( function( e ) {
             $.ajax( {
-                url: "http://localhost/ecf/addReportToDatabase",
+                url: baseUrl + "addReportToDatabase",
                 type: 'POST',
                 dataType:'json',
                 data: new FormData( this ),
@@ -32,7 +38,7 @@ function formApproval() {
                 if (response.error === 'none') {
                     toast('Rapport ajouté! Redirection dans 2 secondes', 'success');
                     window.setTimeout(() => {
-                        window.location.replace("http://localhost/ecf/dashboardVet");
+                        window.location.replace("dashboardVet");
                     }, 2000);
                 }
             }).fail( function( e ) {
@@ -40,7 +46,7 @@ function formApproval() {
                 toast('Une erreur s\'est produite, retour à la page Nourrissage dans 2 secondes','error');
                 // Simulate an HTTP redirect:
                 window.setTimeout(() => {
-                    window.location.replace("http://localhost/ecf/dashboardVet");
+                    window.location.replace("dashboardVet");
                 }, 2000);
             });
             e.preventDefault();

@@ -1,3 +1,9 @@
+let baseUrl;
+if (window.location.hostname === 'localhost') {
+    baseUrl = window.location.origin + '/ecf/';
+} else {
+    baseurl = "https://ecf-arcadia-00d8251bc78c.herokuapp.com/";
+}
 function formApproval() {
     let username = document.getElementById('formUsername').value;
     let password = document.getElementById('formPassword').value;
@@ -36,7 +42,7 @@ function formApproval() {
     $('#addUserForm')
         .submit(function (e) {
             $.ajax({
-                url: "http://localhost/ecf/addUserToDatabase",
+                url: baseUrl + "addUserToDatabase",
                 type: 'POST',
                 dataType: 'json',
                 data: new FormData(this),
@@ -53,16 +59,15 @@ function formApproval() {
                 if (response.error === 'none') {
                     toast('Utilisateur ajouté! Redirection dans 2 secondes', 'success');
                     window.setTimeout(() => {
-                        window.location.replace("http://localhost/ecf/dashboardUsers");
+                        window.location.replace("dashboardUsers");
                     }, 2000);
                 }
             }).fail(function (e) {
                 console.log(e)
                 toast('Une erreur s\'est produite, retour à la page Utilisateurs dans 2 secondes', 'error');
-                // Simulate an HTTP redirect:
-                // window.setTimeout(() => {
-                //     window.location.replace("http://localhost/ecf/dashboardUsers");
-                // }, 2000);
+                window.setTimeout(() => {
+                    window.location.replace("dashboardUsers");
+                }, 2000);
             });
             e.preventDefault();
         });

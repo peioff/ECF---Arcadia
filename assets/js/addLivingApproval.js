@@ -1,3 +1,9 @@
+let baseUrl;
+if (window.location.hostname === 'localhost') {
+    baseUrl = window.location.origin + '/ecf/';
+} else {
+    baseurl = "https://ecf-arcadia-00d8251bc78c.herokuapp.com/";
+}
 function formApprovalTest() {
     let livingName = document.getElementById('livingName').value;
     let livingDescription = document.getElementById('livingDescription').value;
@@ -29,7 +35,7 @@ function formApprovalTest() {
     $( '#addLivingForm' )
         .submit( function( e ) {
             $.ajax( {
-                url: "http://localhost/ecf/addLivingToDatabase",
+                url: baseUrl + "addLivingToDatabase",
                 type: 'POST',
                 dataType:'json',
                 data: new FormData( this ),
@@ -39,7 +45,7 @@ function formApprovalTest() {
                 if (response.error === 'none') {
                     toast('Habitat ajouté! Redirection dans 3 secondes', 'success');
                     window.setTimeout(() => {
-                        window.location.replace("http://localhost/ecf/dashboardLivings");
+                        window.location.replace("dashboardLivings");
                     }, 3000);
                 }
 
@@ -47,7 +53,7 @@ function formApprovalTest() {
                 toast('Une erreur s\'est produite, retour à la page Animaux dans 3 secondes','error');
                 // Simulate an HTTP redirect:
                 window.setTimeout(() => {
-                    window.location.replace("http://localhost/ecf/dashboardLivings");
+                    window.location.replace("dashboardLivings");
                 }, 3000);
             });
             e.preventDefault();
